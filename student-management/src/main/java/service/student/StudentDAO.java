@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDAO implements IStudentDAO{
-    private static final String INSERT_STUDENT_SQL = "insert into student(id, nameStudent, dayofbirth, address, id_class) value (?, ?, ?, ?, ?);";
+    private static final String INSERT_STUDENT_SQL = "insert into student"+ "(id, nameStudent, dayofbirth, address, id_class) value" +
+            " (?, ?, ?, ?, ?);";
     private static final String SELECT_STUDENT_BY_ID_SQL = "select s.id, s.nameStudent, s.dayofbirth, s.address, c.nameClass \n" +
             "from student s join class c on s.id_class = c.id\n" +
             "where s.id = ?;";
@@ -24,6 +25,8 @@ public class StudentDAO implements IStudentDAO{
             "JOIN pointStudent p ON s.id = p.id_student\n" +
             "JOIN class c ON s.id_class = c.id\n" +
             "JOIN subject su ON p.id_subject = su.id;";
+    private static final String SELECT_ALL_STUDENTS_SQL = "select s.id, s.nameStudent, s.dayofbirth, s.address, c.nameClass\n" +
+            "from student s join class c on s.id_class = c.id;";
     Connection c = ConnectionDB.getConnection();
     public StudentDAO() {
     }
@@ -68,24 +71,44 @@ public class StudentDAO implements IStudentDAO{
     @Override
     public List<Student> selectAllStudent() {
         List<Student> students = new ArrayList<>();
-
         try {
-            PreparedStatement statement = c.prepareStatement(SELECT_ALL_STUDENT);
-            System.out.println(statement);
+            PreparedStatement statement = c.prepareStatement(SELECT_ALL_STUDENTS_SQL);
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()){
-                String id = resultSet.getString("id");
-                String nameStudent = resultSet.getString("nameStudent");
-                String nameClass = resultSet.getString("nameClass");
-                String nameSubject = resultSet.getString("nameSubject");
-                float avgPoint = resultSet.getFloat("avgPoint");
-                students.add(new Student(id, nameStudent, nameClass, nameSubject, avgPoint));
+            while (resultSet.next()) {
+                Student student = new Student();
+                student.setId(resultSet.getString("id"));
+                student.setNameStudent(resultSet.getString("nameStudent"));
+                student.setDayOfBirth(resultSet.getString("dayofbirth"));
+                student.setAddress(resultSet.getString("address"));
+                student.setNameClass(resultSet.getString("nameClass"));
+                students.add(student);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return students;
     }
+
+    //    public List<Student> selectAllStudent() {
+//        List<Student> students = new ArrayList<>();
+//
+//        try {
+//            PreparedStatement statement = c.prepareStatement(SELECT_ALL_STUDENT);
+//            System.out.println(statement);
+//            ResultSet resultSet = statement.executeQuery();
+//            while (resultSet.next()){
+//                String id = resultSet.getString("id");
+//                String nameStudent = resultSet.getString("nameStudent");
+//                String nameClass = resultSet.getString("nameClass");
+//                String nameSubject = resultSet.getString("nameSubject");
+//                float avgPoint = resultSet.getFloat("avgPoint");
+//                students.add(new Student(id, nameStudent, nameClass, nameSubject, avgPoint));
+//            }
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return students;
+//    }
 
     @Override
     public void deleteStudent(String id) throws SQLException {

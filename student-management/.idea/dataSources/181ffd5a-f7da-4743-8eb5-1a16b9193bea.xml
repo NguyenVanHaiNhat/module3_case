@@ -1032,7 +1032,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </schema>
     <schema id="300" parent="1" name="quanlihocsinh">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2024-02-20.04:21:45</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-02-20.09:44:41</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="301" parent="1" name="quanlihocvien">
@@ -1166,7 +1166,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Position>2</Position>
     </column>
     <column id="331" parent="312" name="dayofbirth">
-      <DasType>date|0s</DasType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>

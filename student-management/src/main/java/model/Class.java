@@ -1,21 +1,25 @@
 package model;
 
 public class Class {
-    private int id;
+    private int idClass;
     private String nameClass;
 
     public Class(){}
     public Class(int id, String nameClass) {
-        this.id = id;
+        this.idClass = id;
         this.nameClass = nameClass;
     }
 
-    public String getId() {
-        return id;
+    public int getIdClass() {
+        return idClass;
+    }
+
+    public void setIdClass(int idClass) {
+        this.idClass = idClass;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.idClass = id;
     }
 
     public String getNameClass() {
