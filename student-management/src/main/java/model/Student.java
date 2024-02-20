@@ -1,6 +1,6 @@
 package model;
 
-public class Student {
+public class Student extends Class {
     private String id;
     private String nameStudent;
     private String dayOfBirth;
@@ -16,6 +16,13 @@ public class Student {
         this.dayOfBirth = dayOfBirth;
         this.address = address;
         this.id_class = id_class;
+    }
+    public Student(String id, String nameStudent, String dayOfBirth, String address, String nameClass) {
+        this.id = id;
+        this.nameStudent = nameStudent;
+        this.dayOfBirth = dayOfBirth;
+        this.address = address;
+        this.setNameClass(nameClass);
     }
 
     public String getId() {

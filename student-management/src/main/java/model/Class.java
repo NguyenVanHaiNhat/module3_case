@@ -10,7 +10,7 @@ public class Class {
         this.nameClass = nameClass;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
