@@ -24,6 +24,11 @@ public class Student extends Class {
         this.address = address;
         this.setNameClass(nameClass);
     }
+    public Student(String id, String nameStudent, String nameClass, String nameSubject, float avgPoint){
+        this.id = id;
+        this.nameStudent = nameStudent;
+        this.setNameClass(nameClass);
+    }
 
     public String getId() {
         return id;

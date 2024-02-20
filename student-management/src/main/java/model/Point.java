@@ -78,7 +78,4 @@ public class Point {
         this.finalExam = finalExam;
     }
 
-    public double getAvgPoint(){
-        return (getTestMark() + getTestMark15() + getTestMark60() + getMidterm() * 2 + getFinalExam() * 3) / 8;
-    }
 }
