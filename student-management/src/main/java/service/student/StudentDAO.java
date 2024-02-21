@@ -42,7 +42,7 @@ public class StudentDAO implements IStudentDAO{
             statement.setString(2, student.getNameStudent());
             statement.setString(3, student.getDayOfBirth());
             statement.setString(4, student.getAddress());
-            statement.setInt(5, student.getId_class());
+            statement.setString(5, student.getNameClass());
             statement.executeUpdate();
         } catch (SQLException e){
             e.getMessage();

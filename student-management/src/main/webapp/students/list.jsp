@@ -1,51 +1,65 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: nhat0
-  Date: 2/20/2024
-  Time: 11:50 AM
-  To change this template use File | Settings | File Templates.
---%>
-<<%@ page language="java" contentType="text/html; charset=UTF-8"
-          pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="vi">
 <head>
-    <title>Student Management Application</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý học sinh</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<center>
-    <h1>Student Management</h1>
-    <h2>
-        <a href="/students?action=create">Add New Student</a>
-    </h2>
-</center>
-<div align="center">
-    <table border="1" cellpadding="5">
-        <caption><h2>List of Student</h2></caption>
+<div class="container">
+    <h1 class="my-3">Quản Lý Học Sinh</h1>
+    <div class="row d-flex mx-3">
+        <div class="col-8">
+            <a class="btn btn-warning" role="button" href="/students?action=create">Thêm mới</a>
+        </div>
+        <div class="col-4">
+            <form class="d-flex" role="search" action="#" method="post">
+                <input name="action" value="find" hidden="">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="country">
+                <button class="btn btn-outline-secondary" type="submit">Tìm</button>
+            </form>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Address</th>
-            <th>ClassName</th>
+            <th scope="col">MSV</th>
+            <th scope="col">Tên Học Sinh</th>
+            <th scope="col">Ngày sinh</th>
+            <th scope="col">Địa chỉ</th>
+            <th scope="col">Lớp</th>
+
+
+            <th scope="col">Chỉnh sửa</th>
+            <th scope="col">Xoá</th>
         </tr>
-        <jsp:useBean id="listStudent" scope="request" type="java.util.List"/>
-        <c:forEach var="student" items="${listStudent}">
+        </thead>
+
+        <tbody>
+        <c:forEach var="s" items="${listStudent}" >
             <tr>
-                <td><c:out value="${student.id}"/></td>
-                <td><c:out value="${student.nameStudent}"/></td>
-                <td><c:out value="${student.dayOfBirth}"/></td>
-                <td><c:out value="${student.address}"/></td>
-                <td><c:out value="${student.nameClass}"/></td>
+                <td>${s.id}</td>
+                <td>${s.nameStudent}</td>
+                <td>${s.dayOfBirth}</td>
+                <td>${s.address}</td>
+                <td>${s.nameClass}</td>
+
                 <td>
-                    <a href="/students?action=edit&id=${student.id}">Edit</a>
-                    <a href="/students?action=delete&id=${student.id}">Delete</a>
+                    <a class="btn btn-warning" href="/students?action=edit&id=${s.id}" role="button">Chỉnh
+                        sửa</a>
+                </td>
+                <td>
+                    <a class="btn btn-warning" href="/students?action=delete&id=${s.id}" role="button">Xoá</a>
                 </td>
             </tr>
         </c:forEach>
+        </tbody>
     </table>
 </div>
 </body>
 </html>
-
-

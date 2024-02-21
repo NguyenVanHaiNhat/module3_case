@@ -5,63 +5,52 @@
   Time: 11:50 AM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Student Management Application</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm mới học sinh</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<center>
-    <h1>Student Management</h1>
-    <h2>
-        <a href="students?action=students">List All Users</a>
-    </h2>
-</center>
-<div align="center">
-    <form method="post">
-        <table border="1" cellpadding="5">
-            <caption>
-                <h2>Add New Student</h2>
-            </caption>
-            <tr>
-                <th>id student:</th>
-                <td>
-                    <input type="text" name="id" id="id" size="15"/>
-                </td>
-            </tr>
-            <tr>
-                <th>Name Student:</th>
-                <td>
-                    <input type="text" name="nameStudent" id="nameStudent" size="45"/>
-                </td>
-            </tr>
-            <tr>
-                <th>Day of brith:</th>
-                <td>
-                    <input type="text" name="dayofbirth" id="dayofbirth" size="15"/>
-                </td>
-            </tr>
-            <tr>
-                <th>Address:</th>
-                <td>
-                    <input type="text" name="address" id="address" size="15"/>
-                </td>
-            </tr>
-            <tr>
-                <th>Class id:</th>
-                <td>
-                    <input type="text" name="id_class" id="id_class" size="15"/>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <input type="submit" value="Save"/>
-                </td>
-            </tr>
-        </table>
-    </form>
+<div class="container">
+<input type="hidden" name="action" value="create">
+    <div class="row justify-content-center mt-4">
+        <form class="col-md-6" method="post">
+            <h1 class="">Thêm mới học sinh</h1>
+            <div class="form-group">
+                <label for="id">dID</label>
+                <input type="text" class="form-control" name="id" id="id">
+            </div>
+            <div class="form-group">
+                <label for="nameStudent">Tên học sinh</label>
+                <input type="text" class="form-control" name="nameStudent" id="nameStudent">
+            </div>
+            <div class="form-group">
+                <label for="dayofbirth">Ngày sinh</label>
+                <input type="text" class="form-control" name="dayofbirth" id="dayofbirth">
+            </div>
+            <div class="form-group">
+                <label for="address">Địa chỉ</label>
+                <input type="text" class="form-control" name="address" id="address">
+            </div>
+            <div class="form-group">
+                <label for="nameClass">Lớp</label>
+                <select id="nameClass" class="form-control" name="nameClass">
+                    <c:forEach items="${classes}" var="c">
+                        <option value="${c.idClass}">${c.nameClass}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="form-group mt-2">
+                <button class="btn btn-success" role="button" type="submit">Thêm mới</button>
+                <button class="btn btn-warning" role="button">Quay lại</button>
+            </div>
+        </form>
+    </div>
 </div>
 </body>
 </html>

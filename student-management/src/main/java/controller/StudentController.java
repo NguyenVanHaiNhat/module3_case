@@ -1,6 +1,9 @@
 package controller;
 
+import model.Class;
 import model.Student;
+import service.classs.ClassDAO;
+import service.classs.IClassDAO;
 import service.student.IStudentDAO;
 import service.student.StudentDAO;
 
@@ -18,6 +21,7 @@ import java.util.List;
 public class StudentController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private IStudentDAO studentDAO;
+    private static final IClassDAO classDAO = new ClassDAO();
     public void init(){
         studentDAO = new StudentDAO();
     }
@@ -62,8 +66,16 @@ public class StudentController extends HttpServlet {
     private void showEditForm(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
         String id = req.getParameter("id");
         Student existingStudent = studentDAO.selectStudent(id);
+        List<Class> classList = classDAO.findAll();
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("students/edit.jsp");
+        req.setAttribute("classes", classList);
         req.setAttribute("students", existingStudent);
+        requestDispatcher.forward(req, resp);
+    }
+    private void showNewForm(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
+        List<Class> classList = classDAO.findAll();
+        req.setAttribute("classes", classList);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("students/create.jsp");
         requestDispatcher.forward(req, resp);
     }
 
@@ -72,8 +84,8 @@ public class StudentController extends HttpServlet {
         String nameStudent = req.getParameter("nameStudent");
         String dayofbirth = req.getParameter("dayofbirth");
         String address = req.getParameter("address");
-        int id_class = Integer.parseInt(req.getParameter("id_class"));
-        Student newStudent = new Student(id, nameStudent, dayofbirth, address, id_class);
+        String nameClass = req.getParameter("nameClass");
+        Student newStudent = new Student(id, nameStudent, dayofbirth, address, nameClass);
         studentDAO.insertStudent(newStudent);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("students/create.jsp");
         requestDispatcher.forward(req, resp);
@@ -117,10 +129,5 @@ public class StudentController extends HttpServlet {
         req.setAttribute("listStudent", listStudent);
         RequestDispatcher dispatcher = req.getRequestDispatcher("students/list.jsp");
         dispatcher.forward(req, resp);
-    }
-
-    private void showNewForm(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("students/create.jsp");
-        requestDispatcher.forward(req, resp);
     }
 }
