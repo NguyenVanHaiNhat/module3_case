@@ -37,6 +37,10 @@
                 <td><c:out value="${student.dayOfBirth}"/></td>
                 <td><c:out value="${student.address}"/></td>
                 <td><c:out value="${student.nameClass}"/></td>
+                <td>
+                    <a href="/students?action=edit&id=${student.id}">Edit</a>
+                    <a href="/students?action=delete&id=${student.id}">Delete</a>
+                </td>
             </tr>
         </c:forEach>
     </table>

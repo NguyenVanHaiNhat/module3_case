@@ -30,14 +30,41 @@ public class StudentController extends HttpServlet {
         }
 
         try {
-            if (action.equals("create")) {
-                showNewForm(req, resp);
-            } else {
-                listStudent(req, resp);
+            switch (action){
+                case "create":
+                    showNewForm(req, resp);
+                    break;
+                case "edit":
+                    showEditForm(req, resp);
+                    break;
+                case "delete":
+                    deleteStudent(req, resp);
+                    break;
+                default:
+                    listStudent(req, resp);
+                    break;
             }
         } catch (SQLException ex){
             throw new ServletException(ex);
         }
+    }
+
+    private void deleteStudent(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
+        String id = req.getParameter("id");
+        studentDAO.deleteStudent(id);
+
+        List<Student> listStudent = studentDAO.selectAllStudent();
+        req.setAttribute("listStudent", listStudent);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("students/list.jsp");
+        requestDispatcher.forward(req, resp);
+    }
+
+    private void showEditForm(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
+        String id = req.getParameter("id");
+        Student existingStudent = studentDAO.selectStudent(id);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("students/edit.jsp");
+        req.setAttribute("students", existingStudent);
+        requestDispatcher.forward(req, resp);
     }
 
     private void insertStudent(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
@@ -45,7 +72,7 @@ public class StudentController extends HttpServlet {
         String nameStudent = req.getParameter("nameStudent");
         String dayofbirth = req.getParameter("dayofbirth");
         String address = req.getParameter("address");
-        int id_class = req.getIntHeader("id_class");
+        int id_class = Integer.parseInt(req.getParameter("id_class"));
         Student newStudent = new Student(id, nameStudent, dayofbirth, address, id_class);
         studentDAO.insertStudent(newStudent);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("students/create.jsp");
@@ -58,13 +85,31 @@ public class StudentController extends HttpServlet {
         if (action == null){
             action = "";
         }
-        if (action.equals("create")){
-            try {
-                insertStudent(req, resp);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+        try {
+            switch (action) {
+                case "create":
+                    insertStudent(req, resp);
+                    break;
+                case "edit":
+                    updateStudent(req, resp);
+                    break;
             }
+        } catch (SQLException ex){
+            throw new ServletException(ex);
         }
+        }
+
+    private void updateStudent(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException, ServletException {
+        String id = req.getParameter("id");
+        String nameStudent = req.getParameter("nameStudent");
+        String dayofbirth = req.getParameter("dayofbirth");
+        String address = req.getParameter("address");
+        int id_class = Integer.parseInt(req.getParameter("id_class"));
+
+        Student student = new Student(id, nameStudent, dayofbirth, address, id_class);
+        studentDAO.updateStudent(student);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("students/edit.jsp");
+        requestDispatcher.forward(req, resp);
     }
 
     private void listStudent(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException, ServletException {

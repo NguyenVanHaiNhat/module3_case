@@ -10,5 +10,5 @@ public interface IStudentDAO {
     Student selectStudent(String id);
     List<Student> selectAllStudent();
     void deleteStudent(String id) throws SQLException;
-    void updateStudent(String id) throws SQLException;
+    void updateStudent(Student student) throws SQLException;
 }

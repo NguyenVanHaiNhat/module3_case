@@ -16,6 +16,8 @@ public class StudentDAO implements IStudentDAO{
     private static final String SELECT_STUDENT_BY_ID_SQL = "select s.id, s.nameStudent, s.dayofbirth, s.address, c.nameClass \n" +
             "from student s join class c on s.id_class = c.id\n" +
             "where s.id = ?;";
+    private static final String DELETE_STUDENT_SQL = "delete from student where id = ?";
+    private static final String UPDATE_STUDENT_SQL = "update student set nameStudent = ?, dayofbirth = ?, address = ?, id_class = ? where id = ?";
     private static final String SELECT_ALL_STUDENT = "SELECT s.id, \n" +
             "       s.nameStudent, \n" +
             "       c.nameClass, \n" +
@@ -112,11 +114,22 @@ public class StudentDAO implements IStudentDAO{
 
     @Override
     public void deleteStudent(String id) throws SQLException {
-
+        boolean rowDeteted;
+            PreparedStatement statement = c.prepareStatement(DELETE_STUDENT_SQL);
+            statement.setString(1, id);
+            rowDeteted = statement.executeUpdate() > 0;
     }
 
     @Override
-    public void updateStudent(String id) throws SQLException {
+    public void updateStudent(Student student) throws SQLException {
+        boolean rowUpdated;
+        PreparedStatement statement = c.prepareStatement(UPDATE_STUDENT_SQL);
+        statement.setString(1, student.getNameStudent());
+        statement.setString(2, student.getDayOfBirth());
+        statement.setString(3, student.getAddress());
+        statement.setInt(4, student.getId_class());
+        statement.setString(5, student.getId());
 
+        rowUpdated = statement.executeUpdate() > 0;
     }
 }
