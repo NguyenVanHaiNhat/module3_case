@@ -33,6 +33,34 @@ public class PointDAO implements IPointDAO {
             "value (?, ?, ?, ?, ?, ?, ?);";
     private static final String DELETE_POINT = "delete from pointStudent where id_student = ? and id_subject = ?;\n";
     private static final String UPDATE_POINT = "update pointStudent set testMark = ?, testMark15 = ?, testMark60 = ?, midterm = ?, final = ? where id_student = ? and id_subject = ?;\n";
+    private static final String SORT_BY_POINT = "SELECT s.id, \n" +
+            "\t\tsu.id as 'id_subject',\n" +
+            "       s.nameStudent, \n" +
+            "       su.nameSubject,\n" +
+            "       p.testMark,\n" +
+            "       p.testMark15,\n" +
+            "       p.testMark60,\n" +
+            "       p.midterm,\n" +
+            "       p.final,\n" +
+            "       ROUND((p.testMark + p.testMark15 + p.testMark60 + p.midterm * 2 + p.final * 3) / 8, 2) AS 'avgPoint'\n" +
+            "FROM student s \n" +
+            "JOIN pointStudent p ON s.id = p.id_student\n" +
+            "JOIN subject su ON p.id_subject = su.id\n" +
+            "order by avgPoint desc;";
+    private static final String SEARCH_BY_NAME = "SELECT s.id, \n" +
+            "\t\tsu.id as 'id_subject',\n" +
+            "       s.nameStudent, \n" +
+            "       su.nameSubject,\n" +
+            "       p.testMark,\n" +
+            "       p.testMark15,\n" +
+            "       p.testMark60,\n" +
+            "       p.midterm,\n" +
+            "       p.final,\n" +
+            "       ROUND((p.testMark + p.testMark15 + p.testMark60 + p.midterm * 2 + p.final * 3) / 8, 2) AS 'avgPoint'\n" +
+            "FROM student s \n" +
+            "JOIN pointStudent p ON s.id = p.id_student\n" +
+            "JOIN subject su ON p.id_subject = su.id\n" +
+            "where s.nameStudent like ?;";
     public PointDAO() {
     }
 
@@ -97,6 +125,59 @@ public class PointDAO implements IPointDAO {
                 float finalExam = Float.parseFloat(resultSet.getString("final"));
                 float avgPoint = Float.parseFloat(resultSet.getString("avgPoint"));
                 PointDTO pointDTO = new PointDTO(id, id_subject, nameStudent, nameSubject, testMark, testMark15, testMark60, midterm, finalExam, avgPoint);
+                pointDTOS.add(pointDTO);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return pointDTOS;
+    }
+
+    @Override
+    public List<PointDTO> sortByPoint() {
+        List<PointDTO> pointDTOS = new ArrayList<>();
+        try {
+            PreparedStatement statement = c.prepareStatement(SORT_BY_POINT);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                String id = resultSet.getString("id");
+                int id_subject = resultSet.getInt("id_subject");
+                String nameStudent = resultSet.getString("nameStudent");
+                String nameSubject = resultSet.getString("nameSubject");
+                float testMark = Float.parseFloat(resultSet.getString("testMark"));
+                float testMark15 = Float.parseFloat(resultSet.getString("testMark15"));
+                float testMark60 = Float.parseFloat(resultSet.getString("testMark60"));
+                float midterm = Float.parseFloat(resultSet.getString("midterm"));
+                float finalExam = Float.parseFloat(resultSet.getString("final"));
+                float avgPoint = Float.parseFloat(resultSet.getString("avgPoint"));
+                PointDTO pointDTO = new PointDTO(id, id_subject, nameStudent, nameSubject, testMark, testMark15, testMark60, midterm, finalExam, avgPoint);
+                pointDTOS.add(pointDTO);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return pointDTOS;
+    }
+
+    @Override
+    public List<PointDTO> searchByName(String nameStudent) {
+        List<PointDTO> pointDTOS = new ArrayList<>();
+        try {
+            PreparedStatement statement = c.prepareStatement(SEARCH_BY_NAME);
+            statement.setString(1, "%" + nameStudent + "%");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                String id = resultSet.getString("id");
+                int id_subject = resultSet.getInt("id_subject");
+                String nameStudent1 = resultSet.getString("nameStudent");
+                String nameSubject = resultSet.getString("nameSubject");
+                float testMark = Float.parseFloat(resultSet.getString("testMark"));
+                float testMark15 = Float.parseFloat(resultSet.getString("testMark15"));
+                float testMark60 = Float.parseFloat(resultSet.getString("testMark60"));
+                float midterm = Float.parseFloat(resultSet.getString("midterm"));
+                float finalExam = Float.parseFloat(resultSet.getString("final"));
+                float avgPoint = Float.parseFloat(resultSet.getString("avgPoint"));
+                PointDTO pointDTO = new PointDTO(id, id_subject, nameStudent1, nameSubject, testMark, testMark15, testMark60, midterm, finalExam, avgPoint);
                 pointDTOS.add(pointDTO);
             }
         } catch (SQLException e) {

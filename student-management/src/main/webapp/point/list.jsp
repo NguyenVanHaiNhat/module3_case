@@ -24,9 +24,9 @@
             <a class="btn btn-warning" role="button" href="/points?action=create">Thêm mới</a>
         </div>
         <div class="col-4">
-            <form class="d-flex" role="search" action="#" method="post">
+            <form class="d-flex" role="search" action="/points" method="post">
                 <input name="action" value="find" hidden="">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="country">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="nameStudent">
                 <button class="btn btn-outline-secondary" type="submit">Tìm</button>
             </form>
         </div>
@@ -75,6 +75,13 @@
         </c:forEach>
         </tbody>
     </table>
+    <div class="form-group mt-2" >
+        <a class="btn btn-warning" href="/points?action=sort" role="button">Sort By Point</a>
+    </div>
+    <div class="form-group mt-2" >
+        <a class="btn btn-warning" href="/students" role="button">Return table Student</a>
+    </div>
+
 </div>
 </body>
 </html>

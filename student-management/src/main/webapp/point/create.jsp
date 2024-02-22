@@ -59,7 +59,7 @@
             </div>
             <div class="form-group mt-2">
                 <button class="btn btn-success" role="button" type="submit">Thêm mới</button>
-                <button class="btn btn-warning" role="button">Quay lại</button>
+                <a class="btn btn-warning" role="button" href="/points">Quay lại</a>
             </div>
         </form>
     </div>

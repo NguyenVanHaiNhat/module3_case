@@ -43,6 +43,9 @@ public class PointController extends HttpServlet {
                 case "edit":
                     showEdit(request, response);
                     break;
+                case "sort":
+                    sortPoint(request, response);
+                    break;
                 default:
                     showPointList(request, response);
                     break;
@@ -50,6 +53,13 @@ public class PointController extends HttpServlet {
         }catch (SQLException e){
             e.getMessage();
         }
+    }
+
+    private void sortPoint(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("point/list.jsp");
+        List<PointDTO> pointDTOS = this.pointDAO.sortByPoint();
+        request.setAttribute("listPoint", pointDTOS);
+        requestDispatcher.forward(request, response);
     }
 
     private void showEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -106,6 +116,9 @@ public class PointController extends HttpServlet {
                 case "create":
                     createPoint(request, response);
                     break;
+                case "find":
+                    findByName(request, response);
+                    break;
                 default:
                     showPointList(request, response);
                     break;
@@ -114,6 +127,15 @@ public class PointController extends HttpServlet {
             e.getMessage();
         }
     }
+
+    private void findByName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String nameStudent = request.getParameter("nameStudent");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("point/list.jsp");
+        List<PointDTO> pointDTOS = this.pointDAO.searchByName(nameStudent);
+        request.setAttribute("listPoint", pointDTOS);
+        requestDispatcher.forward(request, response);
+    }
+
     private void createPoint(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ServletException {
         String id_student = request.getParameter("nameStudent");
         int id_subject = Integer.parseInt(request.getParameter("nameSubject"));

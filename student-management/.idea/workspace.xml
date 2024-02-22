@@ -9,10 +9,14 @@
       <change beforePath="$PROJECT_DIR$/../sql.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../sql.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/PointController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/PointController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dto/PointDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dto/PointDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/point/IPointDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/point/IPointDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/point/PointDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/point/PointDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/point/create.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/point/create.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/point/edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/point/edit.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/point/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/point/list.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/students/create.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/students/create.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/students/edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/students/edit.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/students/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/students/list.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,6 +97,7 @@
 }]]></component>
   <component name="RunManager">
     <configuration name="Tomcat 9.0.851" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.851" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/students" />
       <option name="UPDATING_POLICY" value="hot-swap-classes" />
       <deployment>
         <artifact name="Gradle : org.example : student-management-1.0-SNAPSHOT.war">
@@ -199,7 +204,7 @@
       <workItem from="1708402783949" duration="15993000" />
       <workItem from="1708477587307" duration="27520000" />
       <workItem from="1708526694277" duration="1229000" />
-      <workItem from="1708563741523" duration="16298000" />
+      <workItem from="1708563741523" duration="22680000" />
     </task>
     <servers />
   </component>
@@ -224,16 +229,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/service/student/StudentDAO.java</url>
           <line>51</line>
           <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/service/student/StudentDAO.java</url>
-          <line>65</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/controller/PointController.java</url>
-          <line>62</line>
-          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
