@@ -2,7 +2,17 @@ package dto;
 
 public class PointDTO {
     private String id;
+    private int idSubject;
     private String nameStudent;
+
+    public int getIdSubject() {
+        return idSubject;
+    }
+
+    public void setIdSubject(int idSubject) {
+        this.idSubject = idSubject;
+    }
+
     private String nameSubject;
     private float testMark;
     private float testMark15;
@@ -35,6 +45,19 @@ public class PointDTO {
         this.testMark60 = testMark60;
         this.midterm = midterm;
         this.finalExam = finalExam;
+    }
+
+    public PointDTO(String id, int idSubject, String nameStudent, String nameSubject, float testMark, float testMark15, float testMark60, float midterm, float finalExam, float avgPoint) {
+        this.id = id;
+        this.idSubject = idSubject;
+        this.nameStudent = nameStudent;
+        this.nameSubject = nameSubject;
+        this.testMark = testMark;
+        this.testMark15 = testMark15;
+        this.testMark60 = testMark60;
+        this.midterm = midterm;
+        this.finalExam = finalExam;
+        this.avgPoint = avgPoint;
     }
 
     public String getId() {

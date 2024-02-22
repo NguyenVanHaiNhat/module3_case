@@ -13,6 +13,7 @@ import java.util.List;
 
 public class PointDAO implements IPointDAO {
     private static final String SELECT_ALL_STUDENT_POINT = "SELECT s.id, \n" +
+            "\t\tsu.id as 'id_subject',\n" +
             "       s.nameStudent, \n" +
             "       su.nameSubject,\n" +
             "       p.testMark,\n" +
@@ -23,10 +24,8 @@ public class PointDAO implements IPointDAO {
             "       ROUND((p.testMark + p.testMark15 + p.testMark60 + p.midterm * 2 + p.final * 3) / 8, 2) AS 'avgPoint'\n" +
             "FROM student s \n" +
             "JOIN pointStudent p ON s.id = p.id_student\n" +
-            "JOIN subject su ON p.id_subject = su.id;\n" +
-            "select s.id, s.nameStudent, s.dayofbirth, s.address, c.nameClass\n" +
-            "from student s join class c on s.id_class = c.id;";
-    private static final String SELECT_POINT_STUDENT_BY_ID = "select s.id, su.id, p.testMark, p.testMark15, p.testMark60, p.midterm, p.final\n" +
+            "JOIN subject su ON p.id_subject = su.id;";
+    private static final String SELECT_POINT_STUDENT_BY_ID = "select s.id, su.id as 'id_subject', p.testMark, p.testMark15, p.testMark60, p.midterm, p.final\n" +
             "from pointStudent p join student s on p.id_student = s.id\n" +
             "join subject su on p.id_subject = su.id\n" +
             "where s.id = ? and su.id = ?;";
@@ -65,7 +64,7 @@ public class PointDAO implements IPointDAO {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
                 String id_studentt = resultSet.getString("id");
-                int id_subjectt = resultSet.getInt("id");
+                int id_subjectt = resultSet.getInt("id_subject");
                 float testMark = resultSet.getFloat("testMark");
                 float testMark15 = resultSet.getFloat("testMark15");
                 float testMark60 = resultSet.getFloat("testMark60");
@@ -88,6 +87,7 @@ public class PointDAO implements IPointDAO {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
                 String id = resultSet.getString("id");
+                int id_subject = resultSet.getInt("id_subject");
                 String nameStudent = resultSet.getString("nameStudent");
                 String nameSubject = resultSet.getString("nameSubject");
                 float testMark = Float.parseFloat(resultSet.getString("testMark"));
@@ -96,7 +96,7 @@ public class PointDAO implements IPointDAO {
                 float midterm = Float.parseFloat(resultSet.getString("midterm"));
                 float finalExam = Float.parseFloat(resultSet.getString("final"));
                 float avgPoint = Float.parseFloat(resultSet.getString("avgPoint"));
-                PointDTO pointDTO = new PointDTO(id, nameStudent, nameSubject, testMark, testMark15, testMark60, midterm, finalExam, avgPoint);
+                PointDTO pointDTO = new PointDTO(id, id_subject, nameStudent, nameSubject, testMark, testMark15, testMark60, midterm, finalExam, avgPoint);
                 pointDTOS.add(pointDTO);
             }
         } catch (SQLException e) {

@@ -54,12 +54,13 @@ public class PointController extends HttpServlet {
 
     private void showEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id_student = request.getParameter("id_student");
-        int id_subject = Integer.parseInt(request.getParameter("id_subject"));
+        int id_subject = Integer.parseInt(request.getParameter("idSubject"));
         Point point = this.pointDAO.selectPoint(id_student, id_subject);
         List<Student> studentList = this.studentDAO.selectAllStudent();
         List<Subject> subjectList = this.subjectDAO.findAll();
         request.setAttribute("student", studentList);
         request.setAttribute("subject", subjectList);
+        request.setAttribute("point", point);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("point/edit.jsp");
         requestDispatcher.forward(request, response);
     }
@@ -75,7 +76,7 @@ public class PointController extends HttpServlet {
 
     private void deletePoint(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         String id_student = request.getParameter("id_student");
-        int id_subject = Integer.parseInt(request.getParameter("id_subject"));
+        int id_subject = Integer.parseInt(request.getParameter("idSubject"));
         this.pointDAO.deletePoint(id_student, id_subject);
 
         List<PointDTO> pointDTOS = pointDAO.findPointAll();
@@ -119,7 +120,7 @@ public class PointController extends HttpServlet {
         float testMark = Float.parseFloat(request.getParameter("testMark"));
         float testMark15 = Float.parseFloat(request.getParameter("testMark15"));
         float testMark60 = Float.parseFloat(request.getParameter("testMark60"));
-            float midterm = Float.parseFloat(request.getParameter("midterm"));
+        float midterm = Float.parseFloat(request.getParameter("midterm"));
         float finalExam = Float.parseFloat(request.getParameter("final"));
         Point point = new Point(id_student, id_subject, testMark, testMark15, testMark60, midterm, finalExam);
         this.pointDAO.insertPoint(point);
@@ -129,7 +130,7 @@ public class PointController extends HttpServlet {
 
     private void editPoint(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         String id_student = request.getParameter("id_student");
-        int id_subject = Integer.parseInt(request.getParameter("id_subject"));
+        int id_subject = Integer.parseInt(request.getParameter("idSubject"));
         float testMark = Float.parseFloat(request.getParameter("testMark"));
         float testMark15 = Float.parseFloat(request.getParameter("testMark15"));
         float testMark60 = Float.parseFloat(request.getParameter("testMark60"));
