@@ -6,11 +6,63 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm mới điểm của học sinh</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-
+<div class="container">
+    <input type="hidden" name="action" value="create">
+    <div class="row justify-content-center mt-4">
+        <form class="col-md-6" method="post">
+            <h1 class="">Thêm mới điểm của học sinh</h1>
+            <div class="form-group">
+                <label for="nameStudent">Tên học sinh</label>
+                <select id="nameStudent" class="form-control" name="nameStudent">
+                    <c:forEach items="${student}" var="s">
+                        <option value="${s.id}">${s.nameStudent}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="nameSubject">Tên môn học</label>
+                <select id="nameSubject" class="form-control" name="nameSubject">
+                    <c:forEach items="${subject}" var="s">
+                        <option value="${s.id}">${s.nameSubject}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="testMark">Điểm kiểm tra</label>
+                <input type="text" class="form-control" name="testMark" id="testMark">
+            </div>
+            <div class="form-group">
+                <label for="testMark15">Điểm kiểm tra 15 phút</label>
+                <input type="text" class="form-control" name="testMark15" id="testMark15">
+            </div>
+            <div class="form-group">
+                <label for="testMark60">Điểm kiểm tra 1 tiết</label>
+                <input type="text" class="form-control" name="testMark60" id="testMark60">
+            </div>
+            <div class="form-group">
+                <label for="midterm">Điểm kiểm tra giữa kì</label>
+                <input type="text" class="form-control" name="midterm" id="midterm">
+            </div>
+            <div class="form-group">
+                <label for="final">Điểm kiểm tra cuối kì</label>
+                <input type="text" class="form-control" name="final" id="final">
+            </div>
+            <div class="form-group mt-2">
+                <button class="btn btn-success" role="button" type="submit">Thêm mới</button>
+                <button class="btn btn-warning" role="button">Quay lại</button>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>

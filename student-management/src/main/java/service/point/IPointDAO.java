@@ -13,5 +13,5 @@ public interface IPointDAO {
 
 
     void deletePoint(String id_student, int id_subject) throws SQLException;
-    void updatePoint(String id_student, int id_subject) throws SQLException;
+    void updatePoint(Point point) throws SQLException;
 }

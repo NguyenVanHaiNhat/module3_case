@@ -33,6 +33,7 @@ public class PointDAO implements IPointDAO {
     private static final String INSERT_POINT = "insert into pointStudent (id_student, id_subject, testMark, testMark15, testMark60, midterm, final) " +
             "value (?, ?, ?, ?, ?, ?, ?);";
     private static final String DELETE_POINT = "delete from pointStudent where id_student = ? and id_subject = ?;\n";
+    private static final String UPDATE_POINT = "update pointStudent set testMark = ?, testMark15 = ?, testMark60 = ?, midterm = ?, final = ? where id_student = ? and id_subject = ?;\n";
     public PointDAO() {
     }
 
@@ -113,7 +114,15 @@ public class PointDAO implements IPointDAO {
     }
 
     @Override
-    public void updatePoint(String id_student, int id_subject) throws SQLException {
-
+    public void updatePoint(Point point) throws SQLException {
+        PreparedStatement statement = c.prepareStatement(UPDATE_POINT);
+        statement.setFloat(1, point.getTestMark());
+        statement.setFloat(2, point.getTestMark15());
+        statement.setFloat(3, point.getTestMark60());
+        statement.setFloat(4, point.getMidterm());
+        statement.setFloat(5, point.getFinalExam());
+        statement.setString(6, point.getId_student());
+        statement.setInt(7, point.getId_subject());
+        statement.executeUpdate();
     }
 }
