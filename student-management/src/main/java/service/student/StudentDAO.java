@@ -18,15 +18,6 @@ public class StudentDAO implements IStudentDAO{
             "where s.id = ?;";
     private static final String DELETE_STUDENT_SQL = "delete from student where id = ?";
     private static final String UPDATE_STUDENT_SQL = "update student set nameStudent = ?, dayofbirth = ?, address = ?, id_class = ? where id = ?";
-    private static final String SELECT_ALL_STUDENT = "SELECT s.id, \n" +
-            "       s.nameStudent, \n" +
-            "       c.nameClass, \n" +
-            "       su.nameSubject, \n" +
-            "       ROUND((p.testMark + p.testMark15 + p.testMark60 + p.midterm * 2 + p.final * 3) / 8, 2) AS 'avgPoint'\n" +
-            "FROM student s \n" +
-            "JOIN pointStudent p ON s.id = p.id_student\n" +
-            "JOIN class c ON s.id_class = c.id\n" +
-            "JOIN subject su ON p.id_subject = su.id;";
     private static final String SELECT_ALL_STUDENTS_SQL = "select s.id, s.nameStudent, s.dayofbirth, s.address, c.nameClass\n" +
             "from student s join class c on s.id_class = c.id;";
     Connection c = ConnectionDB.getConnection();
@@ -90,27 +81,6 @@ public class StudentDAO implements IStudentDAO{
         }
         return students;
     }
-
-    //    public List<Student> selectAllStudent() {
-//        List<Student> students = new ArrayList<>();
-//
-//        try {
-//            PreparedStatement statement = c.prepareStatement(SELECT_ALL_STUDENT);
-//            System.out.println(statement);
-//            ResultSet resultSet = statement.executeQuery();
-//            while (resultSet.next()){
-//                String id = resultSet.getString("id");
-//                String nameStudent = resultSet.getString("nameStudent");
-//                String nameClass = resultSet.getString("nameClass");
-//                String nameSubject = resultSet.getString("nameSubject");
-//                float avgPoint = resultSet.getFloat("avgPoint");
-//                students.add(new Student(id, nameStudent, nameClass, nameSubject, avgPoint));
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return students;
-//    }
 
     @Override
     public void deleteStudent(String id) throws SQLException {

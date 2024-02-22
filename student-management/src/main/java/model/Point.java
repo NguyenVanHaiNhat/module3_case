@@ -9,6 +9,7 @@ public class Point {
     private float midterm;
     private float finalExam;
 
+
     public Point() {
     }
 
